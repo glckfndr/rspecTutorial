@@ -3,7 +3,7 @@ module ExchangeIt
   module Utils
     module Uid
       def hash(*args)
-        return nil if args.any?
+        return nil unless args.any?
 
         Digest::MD5.hexdigest args.join(' ')
       end
