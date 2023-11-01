@@ -18,4 +18,16 @@ describe ExchangeIt::User do
   it 'raise surname error' do
     expect { user_without_surname }.to raise_error('First or second name is nil')
   end
+
+
+  it 'responds to balance and account' do
+    expect(user).to respond_to(:balance)
+    expect(user).to respond_to(:account)
+  end
+  it 'has account' do
+    expect(user.account).to be_an_instance_of(ExchangeIt::Account)
+  end
+  it 'has zero balance by default' do
+    expect(user.balance).to eq(0)
+  end
 end
