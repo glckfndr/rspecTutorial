@@ -13,5 +13,13 @@ module ExchangeIt
 
       @balance += sum
     end
+
+    def transfer(receiver, amount)
+
+    end
+
+    def withdraw(amount)
+
+    end
   end
 end
