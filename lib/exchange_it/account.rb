@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ExchangeIt
   class Account
     include ExchangeIt::Utils::Uid
@@ -15,11 +17,15 @@ module ExchangeIt
     end
 
     def transfer(receiver, amount)
-
+      withdraw amount
+      receiver.deposit amount
     end
 
     def withdraw(amount)
+      raise(ExchangeIt::NotEnoughFunds, "Available: #{@balance} but tried to withdraw #{amount}") if @balance < amount
+      raise(ExchangeIt::IncorrectSum, 'Amount must be positive!') unless amount.positive?
 
+      @balance -= amount
     end
   end
 end
