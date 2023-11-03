@@ -6,8 +6,8 @@ gem 'faraday', '~> 2.0'
 
 group :test do
   gem 'rspec', '~> 3.10'
-  gem 'webmock', '~> 3.14'
   gem 'vcr', '~> 6.1'
+  gem 'webmock', '~> 3.14'
 end
 
 group :development do

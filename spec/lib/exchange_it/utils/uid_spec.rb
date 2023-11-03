@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe ExchangeIt::Utils::Uid do
   let(:dummy) { Class.new { include ExchangeIt::Utils::Uid }.new }
 
