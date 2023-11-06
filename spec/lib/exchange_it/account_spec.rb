@@ -19,7 +19,7 @@ describe ExchangeIt::Account do
     expect(john_account.id).to eq(hash_id)
   end
 
-  describe '#deposit' do
+  describe '#deposit', deposit: true do
     it 'allows to deposit correct sum' do
       john_account.deposit 100
       expect(john_account.balance).to be(100)
@@ -52,7 +52,7 @@ describe ExchangeIt::Account do
       expect(john_account).to respond_to(:withdraw).with(1).arguments
     end
 
-    describe '#withdraw' do
+    describe '#withdraw', withdraw: true do
       before { john_account.deposit 100 }
 
       it 'allows to withdraw correct sum' do
