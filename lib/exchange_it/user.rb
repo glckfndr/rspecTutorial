@@ -10,7 +10,7 @@ module ExchangeIt
     def initialize(first_name, second_name)
       raise('First or second name is nil') if first_name.nil? || second_name.nil?
 
-      @name = first_name
+      @name = first_name # .reverse
       @surname = second_name
       create_account
     end
