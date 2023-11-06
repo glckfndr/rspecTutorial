@@ -14,13 +14,13 @@ describe ExchangeIt::Account do
     expect(john_account.balance).to be(0)
   end
 
-  it 'has proper id' do
+  it 'has proper id', :positive do
     hash_id = john_account.hash 'John', 'Snow'
     expect(john_account.id).to eq(hash_id)
   end
 
-  describe '#deposit', deposit: true do
-    it 'allows to deposit correct sum' do
+  describe '#deposit', :positive do
+    it 'allows to deposit correct sum', :positive do
       john_account.deposit 100
       expect(john_account.balance).to be(100)
     end
@@ -40,7 +40,7 @@ describe ExchangeIt::Account do
         expect(john_account).to respond_to(:transfer).with(2).arguments
       end
 
-      it 'allows to withdraw correct sum' do
+      it 'allows to withdraw correct sum', :positive do
         john_account.deposit 100
         john_account.transfer ann_account, 30
         expect(ann_account.balance).to eq(30)
@@ -55,7 +55,7 @@ describe ExchangeIt::Account do
     describe '#withdraw', withdraw: true do
       before { john_account.deposit 100 }
 
-      it 'allows to withdraw correct sum' do
+      it 'allows to withdraw correct sum', :positive do
         john_account.withdraw 30
         expect(john_account.balance).to eq(70)
       end
