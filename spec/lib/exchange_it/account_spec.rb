@@ -35,15 +35,39 @@ describe ExchangeIt::Account do
   end
 
   context 'when perform money withdrawal' do
+    specify '#transfer_with_conversion' do
+      expect(john_account).to respond_to(:transfer_with_conversion).with(4).arguments
+    end
+
+    describe 'transfer_with_conversion' do
+      it 'does not allow to deposit a zero sum' do
+        john_account.deposit 100
+        allow(john_account).to receive(:convert).with(sum: 50, from: :usd, to: :eur).and_return(40)
+        john_account.transfer_with_conversion ann_account, 50, :usd, :eur
+        expect(john_account.balance).to eq(50)
+        expect(ann_account.balance).to eq(40)
+        expect(john_account).to have_received(:convert)
+      end
+    end
+
     describe '#transfer' do
+      before { john_account.deposit 100 }
+
       specify '#transfer' do
         expect(john_account).to respond_to(:transfer).with(2).arguments
       end
 
-      it 'allows to withdraw correct sum', :positive do
-        john_account.deposit 100
+      it 'allows to transfer correct sum', :positive do
         john_account.transfer ann_account, 30
         expect(ann_account.balance).to eq(30)
+        expect(john_account.balance).to eq(70)
+      end
+
+      it 'allows to transfer(mocked) correct sum', :positive do
+        ann_mocked = instance_double(described_class, balance: 30, deposit: 0)
+
+        john_account.transfer ann_mocked, 30
+        expect(ann_mocked.balance).to eq(30)
         expect(john_account.balance).to eq(70)
       end
     end

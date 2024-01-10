@@ -27,5 +27,11 @@ module ExchangeIt
 
       @balance -= amount
     end
+
+    def transfer_with_conversion(receiver, amount, in_currency, out_currency)
+      converted_amount = convert sum: amount, from: in_currency, to: out_currency
+      withdraw amount
+      receiver.deposit converted_amount
+    end
   end
 end
